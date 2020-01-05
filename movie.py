@@ -14,4 +14,6 @@ class Movie:
         self.category = cateogry
         self.watched = watched
 
-
+    def __str__(self):
+        """ return strings about movie details"""
+        return "{}, {}, {}, {}".format(self.name, self.year, self.category, self.watched)
