@@ -7,4 +7,11 @@ GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 
 class Movie:
 
+    def __init__(self, name, year, cateogry, watched):
+        """ use parameters pass =ed in this and construct them"""
+        self.name = name
+        self.year = year
+        self.category = cateogry
+        self.watched = watched
+
 
