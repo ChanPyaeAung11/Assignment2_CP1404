@@ -33,7 +33,7 @@ method and its tests).
 
 We will assess your Git commit history to see (and mark) that you do
 these in an appropriate order, so make sure you write your classes, with
-tests, then the console program, *before* attempting any functionality
+d Angelatests, then the console program, *before* attempting any functionality
 for the GUI.
 
 The starter code includes two files:  
