@@ -15,10 +15,14 @@ def run_tests():
     assert not default_movie.is_watched
 
     # Test initial-value movie
-    initial_movie = Movie("Thor: Ragnarok", 2017, "Comedy", True)
-    # TODO: Write tests to show this initialisation works
-
-    # TODO: Add more tests, as appropriate, for each method
+    initial_movie = Movie("Thor: Ragnarok", 2017, "Comedy", "w")
+    print(initial_movie)
+    # Test whether check_unwatched and check_watched function works and return what they are supposed to
+    if initial_movie.check_unwatched():
+        initial_movie.is_watched = False
+    elif initial_movie.check_watched():
+        initial_movie.is_watched = True
+    print(initial_movie)
 
 
 run_tests()
