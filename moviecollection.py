@@ -33,5 +33,17 @@ class MovieCollection:
         self.movies.append(new_movie)
         return self.movies
 
+    def get_unwatched_movies(self):
+        """ function to get numbers of unwatched movies"""
+        unwatched_movies = 0
+        for i in range(len(self.movies)):
+            if self.movies[i][3] == "u":
+                unwatched_movies += 1
+        return unwatched_movies
 
+    def get_watched_movies(self, unwatched_movies):
+        """ function to get numbers of watched movies"""
+        print(unwatched_movies)
+        watched_movies = len(self.movies) - unwatched_movies
+        return watched_movies
     pass
