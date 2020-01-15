@@ -28,4 +28,10 @@ class MovieCollection:
         self.movies = [line.strip('\n') for line in self.movies]
         self.movies = [line.split(",") for line in self.movies]
 
+    def add_movie(self, new_movie):
+        """ function to add new movies to the movies list"""
+        self.movies.append(new_movie)
+        return self.movies
+
+
     pass
