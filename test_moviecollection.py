@@ -42,7 +42,14 @@ def run_tests():
 
     # TODO: Test saving movies (check CSV file manually to see results)
 
-    # TODO: Add more tests, as appropriate, for each method
+    # Test to get number of unwatched movies
+    print("Test getting number of unwatched movies:")
+    unwatched_movies = movie_collection.get_unwatched_movies()
+    print(unwatched_movies)
+
+    # Test to get number of watched movies
+    print("Test getting number of watched movies:")
+    print(movie_collection.get_watched_movies(unwatched_movies))
 
 
 run_tests()
