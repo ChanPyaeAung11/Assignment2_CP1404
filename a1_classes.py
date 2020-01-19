@@ -3,23 +3,34 @@ Name: Chan Pyae Aung
 Date Started: 5 Jan 2020
 GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 """
-
+""" import classes from moviecollection.py and movie.py"""
 from movie import Movie
-from moviecollection import MovieCollection
 
-# import itemgetter to sort the list according to year
+""" import itemgetter to sort the list according to year """
 from operator import itemgetter
 
-# constants are put here so that I dont need to repeat writing them in the program
+
+"""CONSTANTS are put here so that I dont need to repeat writing them in the program """
 MENU = "MENU: \n \t L - List movies \n \t A - Add new movie \n \t W - Watch a movie \n \t Q - Quit"
+choice = ["l", "q", "a", "w"]   # a list of choices which will later be used to error check users input
 
-# constance, a list of choices which will later be used to error check users input
-choice = ["l", "q", "a", "w"]
+csv_data = []
+movie_data = []
+csv = 'movies.csv'
+load_file = open(csv, "r")
+for line in load_file:
+    if not line.strip():
+        continue
+    else:
+        csv_data.append(line)
+movies = [line.strip('\n') for line in csv_data]
+movies = [line.split(",") for line in movies]
+for line in movies:             # making movies data store as an object
+    haha = Movie(line[0], line[1], line[2], line[3])
+    movie_data.append(haha)
+print(movie_data)
 
 
-# this is the main function from which user can choose what function to do.
-# watch movie or add new movies or ask for the lists of movies or even quit the program.
-# menu will be repeated asked until user quit the program
 def main():
     print("Movies To Watch 1.0 - by Chan Pyae Aung")
     taken_movies = file_reading()  # this calls file_reading function which read the file and put to the list
