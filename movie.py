@@ -18,17 +18,18 @@ class Movie:
         """ return strings about movie details"""
         return f"{self.title},{self.year},{self.category},{self.is_watched}"
 
-    def save_movie(self):
-        """ save movies back into csv files"""
-        watched = 'w' if self.is_watched else 'u'
-        return f'{self.title}, {self.year}, {self.category}, {watched}\n'
+    def check_unwatched(self):
+        """ return False if a movie is unwatched"""
+        self.is_watched = False
 
     def check_watched(self):
         """ return True if a movie is watched"""
-        self.is_watched = False
-
-    def check_unwatched(self):
-        """ return True if a movie is unwatched"""
         self.is_watched = True
 
     def year_level(self):
+        return int(self.year) <= 10000
+
+    def save_movie(self):
+        """ save movies back into csv files"""
+        watched = 'w' if self.is_watched else 'u'
+        return f"{self.title},{self.year},{self.category},{watched} \n"

@@ -23,4 +23,5 @@ def run_tests():
     assert initial_movie.year == 2017
     assert initial_movie.is_watched
 
+
 run_tests()
