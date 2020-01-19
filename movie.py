@@ -7,7 +7,7 @@ GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 
 class Movie:
 
-    def __init__(self, title="", year=0, category="", is_watched=""):
+    def __init__(self, title="", year=0, category="", is_watched=False):
         """ use parameters passed in this and construct them"""
         self.title = title
         self.year = year

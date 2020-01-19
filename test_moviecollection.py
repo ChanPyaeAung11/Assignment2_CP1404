@@ -14,8 +14,8 @@ def run_tests():
 
     # Test loading movies
     print("Test loading movies:")
-    movies = movie_collection.load_movies('movies.csv')
-    print(movies)
+    movie_collection.load_movies('movies.csv')
+    print(movie_collection)
     assert movie_collection.movies  # assuming CSV file is non-empty, non-empty list is considered True
 
     # Test adding a new Movie with values
@@ -36,7 +36,8 @@ def run_tests():
     """
     # TODO: Add more sorting tests
 
-    # TODO: Test saving movies (check CSV file manually to see results)
+    print("Test saving movies into the file")
+    movie_collection.save_file('movies.csv')
 
     # Test to get number of unwatched movies
     print("Test getting number of unwatched movies:")
