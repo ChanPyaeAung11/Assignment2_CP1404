@@ -3,16 +3,14 @@ Name: Chan Pyae Aung
 Date Started: 5 Jan 2020
 GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 """
-from operator import attrgetter
+from operator import itemgetter
 
 
 class MovieCollection:
 
-    def __init__(self, movies=None):
+    def __init__(self):
         """ construct things needed for the class"""
-        if movies is None:
-            movies = []
-        self.movies = movies
+        self.movies = []
 
     def __str__(self):
         """ print out the movies list"""
@@ -47,9 +45,12 @@ class MovieCollection:
         watched_movies = len(self.movies) - unwatched_movies
         return watched_movies
 
-    def sort_movies(self, movies):
-        sorted_list = sorted(movies, key=attrgetter("__movies_year"))
-        print(sorted_list)
+    def sort_movies(self):
+        print()
+        for data in self.movies:
+            int(data[1])
+        print(self.movies)
+        self.movies.sort(key=itemgetter(int(1)))
 
     def save_file(self, csv):
         """ saves the final list into the file """

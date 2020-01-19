@@ -1,6 +1,7 @@
 """(Incomplete) Tests for MovieCollection class."""
 from movie import Movie
 from moviecollection import MovieCollection
+import operator
 
 
 def run_tests():
@@ -29,11 +30,10 @@ def run_tests():
     print(movie_collection)
 
     # Test sorting movies
-    """
+
     print("Test sorting - year:")
-    movie_collection.sort_movies(list(movies))
+    movie_collection.sort_movies()
     print(movie_collection)
-    """
     # TODO: Add more sorting tests
 
     print("Test saving movies into the file")
