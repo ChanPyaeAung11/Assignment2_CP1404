@@ -3,6 +3,7 @@ Name: Chan Pyae Aung
 Date Started: 5 Jan 2020
 GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 """
+from operator import attrgetter
 
 
 class MovieCollection:
@@ -43,7 +44,18 @@ class MovieCollection:
 
     def get_watched_movies(self, unwatched_movies):
         """ function to get numbers of watched movies"""
-        print(unwatched_movies)
         watched_movies = len(self.movies) - unwatched_movies
         return watched_movies
-    pass
+
+    def sort_movies(self, movies):
+        sorted_list = sorted(movies, key=attrgetter("__movies_year"))
+        print(sorted_list)
+
+    def save_file(self, csv):
+        """ saves the final list into the file """
+        load_file = open(csv, "w")
+        for data in self.movies:
+            load_file.writelines((','.join(str(j) for j in data) + "\n"))
+        load_file.close()
+        return csv
+
