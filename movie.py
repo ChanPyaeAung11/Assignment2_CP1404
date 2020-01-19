@@ -18,6 +18,10 @@ class Movie:
         """ return strings about movie details"""
         return "{}, {}, {}, Watched = {}".format(self.title, self.year, self.category, self.is_watched)
 
+    def save_movie(self):
+        watched = 'w' if self.is_watched else 'u'
+        return f'{self.title}, {self.year}, {self.category}, {watched}\n'
+
     def check_watched(self):
         """ return True if a movie is watched"""
         return self.is_watched == "w"
