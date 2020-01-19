@@ -1,7 +1,6 @@
 """(Incomplete) Tests for MovieCollection class."""
 from movie import Movie
 from moviecollection import MovieCollection
-import operator
 
 
 def run_tests():
@@ -32,7 +31,7 @@ def run_tests():
     # Test sorting movies
 
     print("Test sorting - year:")
-    movie_collection.sort_movies()
+    movie_collection.sort_movies("year")
     print(movie_collection)
     # TODO: Add more sorting tests
 
@@ -48,7 +47,7 @@ def run_tests():
 
     # Test to get number of watched movies
     print("Test getting number of watched movies:")
-    watched_movies = movie_collection.get_watched_movies(unwatched_movies) < 0
+    watched_movies = movie_collection.get_watched_movies()
     assert not watched_movies < 0
     assert watched_movies <= 0
     print(watched_movies)

@@ -16,16 +16,19 @@ class Movie:
 
     def __str__(self):
         """ return strings about movie details"""
-        return "{}, {}, {}, Watched = {}".format(self.title, self.year, self.category, self.is_watched)
+        return f"{self.title},{self.year},{self.category},{self.is_watched}"
 
     def save_movie(self):
+        """ save movies back into csv files"""
         watched = 'w' if self.is_watched else 'u'
         return f'{self.title}, {self.year}, {self.category}, {watched}\n'
 
     def check_watched(self):
         """ return True if a movie is watched"""
-        return self.is_watched == "w"
+        self.is_watched = False
 
     def check_unwatched(self):
         """ return True if a movie is unwatched"""
-        return self.is_watched == "u"
+        self.is_watched = True
+
+    def year_level(self):
