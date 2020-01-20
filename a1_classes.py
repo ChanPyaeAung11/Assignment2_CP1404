@@ -3,16 +3,12 @@ Name: Chan Pyae Aung
 Date Started: 5 Jan 2020
 GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 """
-""" import classes from moviecollection.py and movie.py"""
-from movie import Movie
-
-""" import itemgetter to sort the list according to year """
-from operator import itemgetter
-
+from movie import Movie     # import classes from moviecollection.py and movie.py
+from operator import itemgetter  # import itemgetter to sort the list according to year
 
 """CONSTANTS are put here so that I dont need to repeat writing them in the program """
 MENU = "MENU: \n \t L - List movies \n \t A - Add new movie \n \t W - Watch a movie \n \t Q - Quit"
-choice = ["l", "q", "a", "w"]   # a list of choices which will later be used to error check users input
+choice = ["l", "q", "a", "w"]  # a list of choices which will later be used to error check users input
 
 csv_data = []
 movie_data = []
@@ -24,68 +20,51 @@ for line in load_file:
     else:
         csv_data.append(line)
 movies = [line.strip('\n') for line in csv_data]
-movies = [line.split(",") for line in movies]
-for line in movies:             # making movies data store as an object
-    haha = Movie(line[0], line[1], line[2], line[3])
-    movie_data.append(haha)
-print(movie_data)
+for line in movies:  # making movies data store as an object
+    title, year, category, is_watched = line.split(',')
+    is_watched = is_watched == 'w'
+    name_parts = Movie(title, year, category, is_watched)
+    movie_data.append(name_parts)
 
 
 def main():
     print("Movies To Watch 1.0 - by Chan Pyae Aung")
-    taken_movies = file_reading()  # this calls file_reading function which read the file and put to the list
-    print(len(taken_movies), "movies loaded")
+    print(len(movie_data), "movies loaded")
     while True:
         print(MENU)  # prints out menu which is a constant from above
-        menu_cho = input(">>> ".lower())
-        while menu_cho not in choice:  # error checking whether user input menu choices that are (l or q or a or w)
+        menu_choice = input(">>> ".lower())
+        while menu_choice not in choice:  # error checking whether user input menu choices that are (l or q or a or w)
             print("Invalid Input")
-            menu_cho = input(">>> ".lower())
-        if menu_cho == "l":
-            movie_listin(taken_movies)  # put taken_movies list and calls movie_listin function
-        elif menu_cho == "w":
+            menu_choice = input(">>> ".lower())
+        if menu_choice == "l":
+            movie_listing()  # put taken_movies list and calls movie_listin function
+        elif menu_choice == "w":
             # all_movies_watched function checks whether all movies are watched or not,
             # it goes into watch_movie function
-            watch_movie(taken_movies, all_movies_watched(taken_movies))
-        elif menu_cho == "a":
-            taken_movies.append(add_movie())  # calls add_movie function and append the list to taken_movies list
-            taken_movies.sort(key=itemgetter(1, 0))  # sort out the list according to year
+            watch_movie(movie_data, all_movies_watched(movie_data))
+        elif menu_choice == "a":
+            movie_data.append(add_movie())  # calls add_movie function and append the list to taken_movies list
+            movie_data.sort(key=itemgetter(1, 0))  # sort out the list according to year
         else:
             # gives taken_movies list and calls file_save function
-            print(file_save(taken_movies), "saved to movies.csv")
+            print(save_file(), "saved to movies.csv")
             print("Have a nice day :)")
-            exit()          # exits the whole program
-
-
-# read the file and put movies into lists of lists
-def file_reading():
-    movie_list = []
-    actual = []
-    movie_file = open("movies.csv", "r")
-
-    for i in movie_file:
-        movie_list.append(i.strip('\n'))
-
-    for j in movie_list:
-        actual.append(j.split(','))         # the list that will be used throughout the program
-    actual.sort(key=itemgetter(1, 0))       # sorting the list according to year and name
-    movie_file.close()
-    return actual
+            exit()  # exits the whole program
 
 
 # function to print movies from the list and decide whether to put * or none
-def movie_listin(taken_movies):
+def movie_listing():
     k = -1
     u_count = 0
     w_count = 0
-    for m in taken_movies:
+    for m in range(len(movie_data)):
         k += 1
-        if m[3] == "u":
+        if not movie_data[m].is_watched:
             u_count += 1
-            print(k, ". * {:40} {:>10} ({:>4})".format(m[0], m[1], m[2]))
+            print(k, ". * {:40} {:>10} ({:>4})".format(movie_data[m].title, movie_data[m].year, movie_data[m].category))
         else:
             w_count += 1
-            print(k, ".   {:40} {:>10} ({:>4})".format(m[0], m[1], m[2]))
+            print(k, ".   {:40} {:>10} ({:>4})".format(movie_data[m].title, movie_data[m].year, movie_data[m].category))
     print(u_count, " movies to watch, ", w_count, " still to watch")
 
 
@@ -122,18 +101,18 @@ def add_movie():
 
     new_movie.append("u")
 
-    print(movie_name, "(" "{} from {}".format(cate, year),")", "is added to movie list.")
+    print(movie_name, "(" "{} from {}".format(cate, year), ")", "is added to movie list.")
     return new_movie
 
 
 # function to check whether all movies are watched or not.
 # if all movies are watched, function returns True
 # if not, function returns False
-def all_movies_watched(taken_movies):
-    for movie in taken_movies:
-        if movie[3] == "u":
-            return False
-    return True
+def all_movies_watched(movie_data):
+    for movie in movie_data:
+        if movie.check_watched():
+            return True
+    return False
 
 
 # this function first takes True or False from all_movies_watched and movies lists of lists
@@ -148,24 +127,24 @@ def watch_movie(taken_movies, movie_watched):
     else:
         print("Enter the number of a movie to mark as watched")
         ask = valid_int(">>> ")
-        while ask > len(taken_movies) - 1 or ask < 0:  # error checking user input
+        while ask > len(taken_movies) - 2 or ask < 0:  # error checking user input
             print("This does not exist. Choose Again.")
             ask = valid_int(">>> ")
-        if taken_movies[ask][3] == 'u':
-            taken_movies[ask][3] = 'w'  # changes the 'u' to 'w' to indicate as watched
-            print(taken_movies[ask][0] + " from " + taken_movies[ask][1] + " watched.")
+        if not taken_movies[ask].is_watched:
+            taken_movies[ask].is_watched = True  # changes the 'u' to 'w' to indicate as watched
+            print(taken_movies[ask].title + " from " + taken_movies[ask].year + " watched.")
         else:
-            print("You have already watched " + taken_movies[ask][0] + ".")
+            print("You have already watched " + taken_movies[ask].title + ".")
     return taken_movies
 
 
 # this function overwrites the final lists of lists to the file
 # final_count is counting numbers of movies and returned to main.
-def file_save(taken_movies):
+def save_file():
     final_count = 0
     movie_file = open("movies.csv", "w")
-    for data in taken_movies:
-        movie_file.writelines(','.join(data) + "\n")
+    for data in movie_data:
+        movie_file.write(data.save_movie())
         final_count += 1
     movie_file.close()
     return final_count
@@ -185,4 +164,3 @@ def valid_int(prompt):
 
 if __name__ == '__main__':
     main()
-
