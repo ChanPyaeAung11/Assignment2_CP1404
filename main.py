@@ -144,9 +144,9 @@ class MoviesToWatchApp(App):
         elif not year.isdigit():  # prevent user invalid input
             self.root.ids.message.text = 'Please enter a valid number.'
             error_check = True
-        elif int(year) < 0:  # prevent user input year less than 0 and negative number
+        elif len(str(year)) < 4:  # prevent user inputting numbers less than 4 digits
+            self.root.ids.message.text = 'Year must be 4 digits.'
             error_check = True
-            self.root.ids.message.text = 'Year must be more than 0.'
         return error_check
 
     def clear_input_movie(self):
