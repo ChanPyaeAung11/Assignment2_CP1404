@@ -15,7 +15,7 @@ from kivy.app import App
 from movie import Movie
 
 # colors for buttons which are constants which is why written above
-COLORS = [[0, 230, 250, 0.5], [250, 0, 160, 0.5]]
+COLORS = [[0, 230, 250, 0.5], [0.988,0.0117,0.0117,1]]
 # this is for sorting options
 sorting = {'Title': 'title', 'Year': 'year', 'Category': 'category',
            'Watched': 'is_watched'}
