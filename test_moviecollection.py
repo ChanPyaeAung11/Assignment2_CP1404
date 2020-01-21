@@ -20,13 +20,13 @@ def run_tests():
 
     # Test adding a new Movie with values
     print("Test adding new movie:")
-    movie_collection.add_movie(Movie("Cats", 2019, "Musical", "u"))
+    movie_collection.add_movie(Movie("Cats", 2019, "Musical", "u"))     # adding new movies
     print(movie_collection)
 
     # Test sorting movies
 
     print("Test sorting - year:")
-    movie_collection.sort_movie("title")
+    movie_collection.sort_movie("year")
     print(movie_collection)
 
     # Test to get number of unwatched movies
