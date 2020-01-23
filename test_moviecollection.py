@@ -24,20 +24,18 @@ def run_tests():
     print(movie_collection)
 
     # Test sorting movies
-
-    print("Test sorting - year:")
-    movie_collection.sort_movie("year")
+    """
+    print("Test sorting - year:") 
+    movie_collection.sort_movie("year"). 7                
     print(movie_collection)
-
+    """
     # Test to get number of unwatched movies
     print("Test getting number of unwatched movies:")
-    unwatched_movies = movie_collection.get_unwatched_movies()
-    print(unwatched_movies)
+    print(movie_collection.get_unwatched_movies())
 
     # Test to get number of watched movies
     print("Test getting number of watched movies:")
-    watched_movies = movie_collection.get_watched_movies()
-    print(watched_movies)
+    print(movie_collection.get_watched_movies())
 
     print("Test saving movies into the file")
     movie_collection.save_file('movies.csv')

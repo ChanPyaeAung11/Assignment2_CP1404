@@ -7,6 +7,7 @@ from movie import Movie
 
 
 class MovieCollection:
+    """ classes to be used in main.py for movies app"""
 
     def __str__(self):  # for testing
         """ print out the movies list"""
@@ -29,6 +30,7 @@ class MovieCollection:
         self.unwatch_movie = left
 
     def get_watched_movies(self):
+        """ function to get numbers of watched movies"""
         self.watch_movie = ''
         right = len([movie for movie in self.movies if movie.is_watched])
         self.watch_movie = right
@@ -47,6 +49,7 @@ class MovieCollection:
         with open(output_file, 'w') as csv:
             for movie in self.movies:
                 csv.write(movie.save_movie())
+        csv.close()
 
     def sort_movie(self, sort_by):
         """to sort the movie based on given types"""
