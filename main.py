@@ -60,7 +60,8 @@ class MoviesToWatchApp(App):
         self.current_display_sorting = text
         self.show_movie()
 
-    def clear(self):  # this is to clear data so that the previous movie not added again
+    def clear(self):
+        """ this is to clear data so that the previous movie not added again"""
         for value in self.btn_movie:
             self.root.ids.display_movie.remove_widget(value)
 
@@ -80,6 +81,7 @@ class MoviesToWatchApp(App):
             self.root.ids.display_movie.add_widget(btn)
 
     def change_watch(self, instance):
+        """ Change interfaces an texts on kivy when the users watch or not watch the movie"""
         watch = self.movie_dict[instance.id]
         if watch.is_watched:
             watch.check_unwatched()
@@ -95,13 +97,13 @@ class MoviesToWatchApp(App):
             else:
                 watch.check_watched()
                 self.root.ids.message.text = (
-                    "you have watched {}.".format(watch.title))  # if movie watched then display this message
-        self.movie_collection.get_unwatched_movies()  # count movie that has not been watched before
+                    "you have watched {}.".format(watch.title))  # if the movie is watched, display this message
+        self.movie_collection.get_unwatched_movies()  # get number of unwatched movies
         self.movie_collection.get_watched_movies()
         # update and display number of movie watched and need to watch
         self.root.ids.status_watch.text = ("To watch: {}. Watched: {}".format(self.movie_collection.unwatch_movie,
                                                                               self.movie_collection.watch_movie))
-        instance.background_color = COLORS[watch.is_watched]  # update the button color
+        instance.background_color = COLORS[watch.is_watched]  # change the button colour
         self.show_movie()  # display new buttons
 
     def add_movie(self):
@@ -115,9 +117,9 @@ class MoviesToWatchApp(App):
         if not error_check:
             m = Movie(title, year, category)  # add input to the list
             self.movie_collection.add_movie(m)
-            self.movie_dict[title] = m  # put into the dictionary
+            self.movie_dict[title] = m  # add into the dictionary
             self.show_movie()
-            self.movie_collection.get_unwatched_movies()  # to update number of unwatch movie
+            self.movie_collection.get_unwatched_movies()  # to get update number of unwatched movie
             self.root.ids.status_watch.text = ("To watch: {}. Watched: {}".format(self.movie_collection.unwatch_movie,
                                                                                   self.movie_collection.watch_movie))
             self.clear_input_movie()  # clear input when the movie successfully added
@@ -129,19 +131,19 @@ class MoviesToWatchApp(App):
         title = self.root.ids.title.text  # add input from the user
         title = title.capitalize()  # auto capitalize so the input will not interfere with sort
         category = self.root.ids.category.text
-        category = category.capitalize()  # auto capitalize so the input will not interfere with sort
+        category = category.capitalize()
         year = self.root.ids.year.text
 
         if category not in ('Action', 'Comedy', 'Documentary', 'Drama', 'Fantasy', 'Thriller'):
-            # prevent user from entering invalid string other than this mention
+            # prevent user from entering invalid words other than categories
             self.root.ids.message.text = ('Category must be one of Action, Comedy,'
                                           ' Documentary, Drama, Fantasy, and Thriller')
             error_check = True
             return error_check
-        if not (title and year and category):  # user to input all fields
+        if not (title and year and category):   # asks user to fill in all fields
             self.root.ids.message.text = 'All fields must be completed.'
             error_check = True
-        elif not year.isdigit():  # prevent user invalid input
+        elif not year.isdigit():  # prevents user from inputting things other than digits
             self.root.ids.message.text = 'Please enter a valid number.'
             error_check = True
         elif len(str(year)) < 4:  # prevent user inputting numbers less than 4 digits
@@ -150,13 +152,13 @@ class MoviesToWatchApp(App):
         return error_check
 
     def clear_input_movie(self):
-        """ Clear the inputs when clear button is clicked"""
+        """ delete all user inputs when the user clicks clear button"""
         self.root.ids.title.text = ""
         self.root.ids.year.text = ""
         self.root.ids.category.text = ""
 
     def on_stop(self):
-        """ saves all the moves into the csv file when user closes the program"""
+        """saves updated movies into the csv file"""
         self.movie_collection.save_file("movies.csv")
 
 
