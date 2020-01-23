@@ -30,6 +30,6 @@ class Movie:
         return int(self.year) <= 10000
 
     def save_movie(self):
-        """ save movies back into csv files"""
+        """ formatting the movie data to be put into csv"""
         watched = 'w' if self.is_watched else 'u'
         return f"{self.title},{self.year},{self.category},{watched} \n"
