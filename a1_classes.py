@@ -41,7 +41,7 @@ def main():
         elif menu_choice == "w":
             # all_movies_watched function checks whether all movies are watched or not,
             # it goes into watch_movie function
-            watch_movie(movie_data, all_movies_watched(movie_data))
+            watch_movie(movie_data)
         elif menu_choice == "a":
             movie_data.append(add_movie())  # calls add_movie function and append the list to taken_movies list
             movie_data.sort(key=itemgetter(1, 0))  # sort out the list according to year
@@ -65,12 +65,12 @@ def movie_listing():
         else:
             w_count += 1
             print(k, ".   {:40} {:>10} ({:>4})".format(movie_data[m].title, movie_data[m].year, movie_data[m].category))
-    print(u_count, " movies to watch, ", w_count, " still to watch")
+    print(u_count, " movies to watch, ", w_count, " movies watched")
 
 
 def add_movie():
     """ function ask for new movies names, year and category, error checking each input and put them into the list
-         and returns the new movie list to main"""
+         and returns the new movie list to main """
     new_movie = []
     movie_name = input("Movie Name:")
     while movie_name == "":  # error check so that user cannot input blanks
@@ -105,17 +105,6 @@ def add_movie():
     return new_movie
 
 
-def all_movies_watched(movie_data):
-    """ function to check whether all movies are watched or not.
-        if all movies are watched, function returns True
-        if not, function returns False
-    """
-    for movie in movie_data:
-        if movie.check_watched():
-            return True
-    return False
-
-
 """
 # this function first takes True or False from all_movies_watched and movies lists of lists
 # if True, print out "cannot watch anything."
@@ -126,21 +115,27 @@ def all_movies_watched(movie_data):
 """
 
 
-def watch_movie(taken_movies, movie_watched):
-    if movie_watched is True:
-        print("no more movies to watch")
-    else:
-        print("Enter the number of a movie to mark as watched")
-        ask = valid_int(">>> ")
-        while ask > len(taken_movies) - 2 or ask < 0:  # error checking user input
-            print("This does not exist. Choose Again.")
+def watch_movie(taken_movies):
+    movie_watched = False
+    for i in range(len(taken_movies)):
+        if not taken_movies[i].is_watched:
+            movie_watched = True
+    if movie_watched:
+        valid = False
+        while not valid:
+            print("Enter the number of a movie to mark as watched")
             ask = valid_int(">>> ")
-        if not taken_movies[ask].is_watched:
-            taken_movies[ask].is_watched = True  # changes the 'u' to 'w' to indicate as watched
-            print(taken_movies[ask].title + " from " + taken_movies[ask].year + " watched.")
-        else:
-            print("You have already watched " + taken_movies[ask].title + ".")
-    return taken_movies
+            if ask > len(taken_movies) - 1 or ask < 0:  # error checking user input
+                print("This does not exist. Choose Again.")
+                ask = valid_int(">>> ")
+            else:
+                valid = True
+
+            if not taken_movies[ask].is_watched:
+                taken_movies[ask].is_watched = True  # changes the 'u' to 'w' to indicate as watched
+                print(taken_movies[ask].title + " from " + taken_movies[ask].year + " watched.")
+            else:
+                print("You have already watched " + taken_movies[ask].title + ".")
 
 
 def save_file():
