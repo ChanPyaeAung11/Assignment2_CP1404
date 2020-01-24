@@ -1,7 +1,7 @@
 """
 Name: Chan Pyae Aung
 Date Started: 5 Jan 2020
-Brief Project Description: Create a small kivy interfaced program that let users watch, add movies
+Brief Project Description: Create a small kivy interfaced program that let users play around with the movies.csv
 GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 """
 

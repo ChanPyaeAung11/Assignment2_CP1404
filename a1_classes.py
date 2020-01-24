@@ -3,7 +3,7 @@ Name: Chan Pyae Aung
 Date Started: 5 Jan 2020
 GitHub URL: https://github.com/JCUS-CP1404/assignment-02-ChanPyaeAung11
 """
-from movie import Movie     # import classes from moviecollection.py and movie.py
+from movie import Movie  # import classes from moviecollection.py and movie.py
 from operator import itemgetter  # import itemgetter to sort the list according to year
 
 """CONSTANTS are put here so that I dont need to repeat writing them in the program """
@@ -31,7 +31,7 @@ def main():
     print("Movies To Watch 1.0 - by Chan Pyae Aung")
     print(len(movie_data), "movies loaded")
     while True:
-        print(MENU)  # prints out menu which is a constant from above
+        print(MENU)  # prints out menu, constant from above
         menu_choice = input(">>> ".lower())
         while menu_choice not in choice:  # error checking whether user input menu choices that are (l or q or a or w)
             print("Invalid Input")
@@ -52,8 +52,8 @@ def main():
             exit()  # exits the whole program
 
 
-# function to print movies from the list and decide whether to put * or none
 def movie_listing():
+    """ function to print movies from the list and decide whether to put * or none"""
     k = -1
     u_count = 0
     w_count = 0
@@ -68,9 +68,9 @@ def movie_listing():
     print(u_count, " movies to watch, ", w_count, " still to watch")
 
 
-# function ask for new movies names, year and category, error checking each input and put them into the list
-# returns the new movie list to main
 def add_movie():
+    """ function ask for new movies names, year and category, error checking each input and put them into the list
+         and returns the new movie list to main"""
     new_movie = []
     movie_name = input("Movie Name:")
     while movie_name == "":  # error check so that user cannot input blanks
@@ -105,22 +105,27 @@ def add_movie():
     return new_movie
 
 
-# function to check whether all movies are watched or not.
-# if all movies are watched, function returns True
-# if not, function returns False
 def all_movies_watched(movie_data):
+    """ function to check whether all movies are watched or not.
+        if all movies are watched, function returns True
+        if not, function returns False
+    """
     for movie in movie_data:
         if movie.check_watched():
             return True
     return False
 
 
+"""
 # this function first takes True or False from all_movies_watched and movies lists of lists
 # if True, print out "cannot watch anything."
 # if False, ask for which movie to watch
 # and mark "w" beside that movie.
 # if a movie watched is chosen, print out that this movie is already watched.
 # then, returns the lists of lists as updated
+"""
+
+
 def watch_movie(taken_movies, movie_watched):
     if movie_watched is True:
         print("no more movies to watch")
@@ -138,9 +143,11 @@ def watch_movie(taken_movies, movie_watched):
     return taken_movies
 
 
-# this function overwrites the final lists of lists to the file
-# final_count is counting numbers of movies and returned to main.
 def save_file():
+    """
+    this function overwrites the final lists of lists to the file
+    final_count is counting numbers of movies and returned to main.
+    """
     final_count = 0
     movie_file = open("movies.csv", "w")
     for data in movie_data:
@@ -150,10 +157,9 @@ def save_file():
     return final_count
 
 
-# this function is for error checking integer input.
-# this is used in add_movie()
-# this function will loop until user input integer.
 def valid_int(prompt):
+    """ this function is for error checking integer input.
+        this function will loop until user input integer."""
     while True:
         try:
             num = int(input(prompt))
